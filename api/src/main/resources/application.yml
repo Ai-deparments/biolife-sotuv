@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: biolife-api
+  datasource:
+    url: ${BIOLIFE_DB_URL:jdbc:postgresql://localhost:5432/biolife}
+    username: ${BIOLIFE_DB_USER:sultan}
+    password: ${BIOLIFE_DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  modulith:
+    events:
+      jdbc:
+        schema-initialization:
+          enabled: true
+      republish-outstanding-events-on-restart: true
+  jackson:
+    default-property-inclusion: non_null
+  threads:
+    virtual:
+      enabled: true
+  servlet:
+    multipart:
+      max-file-size: 60MB
+      max-request-size: 64MB
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-message: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+biolife:
+  auth:
+    jwt-secret: ${BIOLIFE_JWT_SECRET:}
+    jwt-ttl: PT12H
+    dev-headers: false
+  reports:
+    telegram:
+      # bo'sh bo'lsa hisobotlar log'ga yoziladi; chat-id bir nechta bo'lishi mumkin: "id1,id2"
+      bot-token: ${BIOLIFE_REPORT_BOT_TOKEN:}
+      chat-id: ${BIOLIFE_REPORT_CHAT_ID:}
+      api-url: ${BIOLIFE_TELEGRAM_API_URL:https://api.telegram.org}
+  recordings:
+    # suhbat yozuvlari (audio); matn va ball bazada qoladi, audio keep-days kundan keyin o'chiriladi
+    dir: ${BIOLIFE_RECORDINGS_DIR:${user.home}/biolife-recordings}
+    keep-days: ${BIOLIFE_RECORDINGS_KEEP_DAYS:180}
+  public-url:
+    # cloudflared quick tunnel metrics (…/quicktunnel); bo'sh bo'lsa yangi manzil e'lon qilinmaydi
+    metrics-url: ${BIOLIFE_PUBLIC_URL_METRICS:}
+
+logging:
+  level:
+    uz.biolife: INFO
+    org.springframework.modulith: INFO

@@ -1,0 +1,10 @@
+[Unit]
+Description=BioLife Agent AI — kunlik zaxira, 02:45
+
+[Timer]
+OnCalendar=*-*-* 02:45:00
+Persistent=true
+Unit=biolife-sales-backup.service
+
+[Install]
+WantedBy=timers.target

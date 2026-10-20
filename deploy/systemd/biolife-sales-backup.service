@@ -1,0 +1,14 @@
+[Unit]
+Description=BioLife Agent AI — kunlik zaxira (baza va ko'prik holati)
+After=postgresql.service
+
+[Service]
+Type=oneshot
+User=ubuntu
+Group=ubuntu
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/ubuntu/biolife-sales/deploy/backup.sh
+Nice=10
+IOSchedulingClass=idle
+StandardOutput=journal
+StandardError=journal

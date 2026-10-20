@@ -1,0 +1,21 @@
+# BioLife Agent AI — suhbat tahlili ishchisi: agent yozuvini Gemini'da matnga o'giradi (faqat STT),
+# Claude (Max obuna, nova-llm-gateway orqali) baholaydi, natijani API'ga qaytaradi. Kod: worker/conversation_ai/worker.py
+[Unit]
+Description=BioLife Agent AI — suhbat tahlili (Gemini STT + Claude)
+After=network-online.target biolife-sales-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/biolife-sales/worker/conversation_ai
+EnvironmentFile=/home/ubuntu/biolife-sales/.env
+ExecStart=/usr/bin/python3 -u /home/ubuntu/biolife-sales/worker/conversation_ai/worker.py
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

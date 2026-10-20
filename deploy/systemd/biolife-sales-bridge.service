@@ -1,0 +1,21 @@
+# Kuzatuv → BioLife Agent AI ko'prigi: Kuzatuv SQLite'ni faqat o'qib, haqiqiy agent/vizit/foto/buyurtma
+# faktlarini biolife-api'ga voqea sifatida yuboradi (har 5 daqiqada). Kod: worker/kuzatuv_bridge/bridge.py
+[Unit]
+Description=BioLife Agent AI — Kuzatuv ko'prigi (haqiqiy faktlar)
+After=network-online.target biolife-sales-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/biolife-sales/worker/kuzatuv_bridge
+EnvironmentFile=/home/ubuntu/biolife-sales/.env
+ExecStart=/usr/bin/python3 -u /home/ubuntu/biolife-sales/worker/kuzatuv_bridge/bridge.py
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

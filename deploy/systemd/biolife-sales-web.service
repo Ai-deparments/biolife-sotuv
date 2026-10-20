@@ -1,0 +1,27 @@
+# BioLife Agent AI (biolife-sales) — web (Next.js standalone). Port 127.0.0.1:3130, /api -> API ga proxy.
+# Yig'ish: ~/biolife-sales/build.sh web (app/web-<vaqt> ga yig'adi va app/web havolasini almashtiradi).
+# .env ulanmaydi: undagi PORT API niki.
+[Unit]
+Description=BioLife Agent AI (savdo agentlari) — web
+After=network-online.target biolife-sales-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/biolife-sales/app/web
+Environment=NODE_ENV=production
+Environment=PORT=3130
+Environment=HOSTNAME=127.0.0.1
+Environment=TZ=Asia/Tashkent
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/env node server.js
+Restart=always
+RestartSec=5
+TimeoutStopSec=20
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

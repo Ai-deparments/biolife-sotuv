@@ -1,0 +1,23 @@
+# BioLife Agent AI (biolife-sales) — API (Spring Boot, Java 21). Port 127.0.0.1:8130.
+# Sozlamalar: /home/ubuntu/biolife-sales/.env. Yig'ish: ~/biolife-sales/build.sh api (app/api/current.jar ni yangilaydi)
+[Unit]
+Description=BioLife Agent AI (savdo agentlari) — API
+After=network-online.target postgresql.service
+Wants=network-online.target
+Requires=postgresql.service
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/biolife-sales/app/api
+EnvironmentFile=/home/ubuntu/biolife-sales/.env
+ExecStart=/usr/bin/java -Xms128m -Xmx512m -XX:+UseSerialGC -Dspring.modulith.events.completion-mode=DELETE -Dspring.task.execution.simple.concurrency-limit=8 -jar /home/ubuntu/biolife-sales/app/api/current.jar
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

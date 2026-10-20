@@ -1,0 +1,23 @@
+# BioLife Agent AI — polka rasmi tahlili ishchisi: RITM rasmini yuklab, Claude (Max obuna, `claude` CLI orqali — shlyuz
+# rasm qabul qilmaydi) BioLife yuzlarini sanaydi, natijani API'ga qaytaradi. Kod: worker/photo_ai/worker.py
+[Unit]
+Description=BioLife Agent AI — polka rasmi tahlili (Claude)
+After=network-online.target biolife-sales-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/biolife-sales/worker/photo_ai
+EnvironmentFile=/home/ubuntu/biolife-sales/.env
+Environment=PATH=/home/ubuntu/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=CLAUDE_CLI=/home/ubuntu/.local/bin/claude
+ExecStart=/usr/bin/python3 -u /home/ubuntu/biolife-sales/worker/photo_ai/worker.py
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

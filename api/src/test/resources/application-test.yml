@@ -1,0 +1,12 @@
+spring:
+  flyway:
+    enabled: true
+biolife:
+  recordings:
+    dir: ${java.io.tmpdir}/biolife-test-recordings
+  auth:
+    jwt-secret: test-secret-test-secret-test-secret-0123456789
+    dev-headers: true
+logging:
+  level:
+    uz.biolife: DEBUG

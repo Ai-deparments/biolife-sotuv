@@ -1,0 +1,23 @@
+# java
+api/target/
+*.class
+*.log
+# node
+web/node_modules/
+web/.next/
+web/out/
+web/tsconfig.tsbuildinfo
+# python
+worker/.venv/
+__pycache__/
+# env & local
+.env
+deploy/.env
+.DS_Store
+.idea/
+.vscode/
+# server ish fayllari
+data/
+app/
+backups/
+worker/kuzatuv_bridge/state.sqlite

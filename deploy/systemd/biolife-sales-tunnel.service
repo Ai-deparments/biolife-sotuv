@@ -1,0 +1,22 @@
+# Internetdan HTTPS orqali kirish — Cloudflare tezkor tunneli (ombor-tunnel bilan bir xil).
+# Manzil (https://....trycloudflare.com) qayta ishga tushganda o'zgaradi:
+#   journalctl -u biolife-sales-tunnel | grep trycloudflare | tail -1
+# Doimiy domen kerak bo'lsa nomli tunnelga o'tiladi.
+[Unit]
+Description=BioLife Agent AI (savdo agentlari) — HTTPS tunnel (Cloudflare)
+After=network-online.target biolife-sales-web.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+Environment=HOME=/home/ubuntu
+ExecStart=/usr/local/bin/cloudflared tunnel --no-autoupdate --url http://127.0.0.1:3130 --metrics 127.0.0.1:20246
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

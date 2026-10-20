@@ -1,0 +1,11 @@
+biolife:
+  auth:
+    jwt-secret: ${BIOLIFE_JWT_SECRET:local-dev-secret-change-me-please-0123456789}
+    dev-headers: true
+  seed:
+    enabled: true
+    manager-password: ${BIOLIFE_SEED_MANAGER_PASSWORD:rahbar123}
+    agent-password: ${BIOLIFE_SEED_AGENT_PASSWORD:agent123}
+logging:
+  level:
+    uz.biolife: DEBUG

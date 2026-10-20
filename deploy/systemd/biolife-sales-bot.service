@@ -1,0 +1,23 @@
+# BioLife Agent AI — rahbar boti: Telegram'da savolga javob beradigan AI yordamchi (Claude, Max obuna, `claude` CLI;
+# zaxira — nova-llm-gateway) va tez hisobot tugmalari. Kunlik/haftalik hisobotni API o'zi shu token bilan yuboradi. Kod: worker/telegram_bot/bot.py
+[Unit]
+Description=BioLife Agent AI — rahbar boti (Telegram)
+After=network-online.target biolife-sales-api.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/biolife-sales/worker/telegram_bot
+EnvironmentFile=/home/ubuntu/biolife-sales/.env
+Environment=PATH=/home/ubuntu/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=CLAUDE_CLI=/home/ubuntu/.local/bin/claude
+ExecStart=/usr/bin/python3 -u /home/ubuntu/biolife-sales/worker/telegram_bot/bot.py
+Restart=always
+RestartSec=30
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

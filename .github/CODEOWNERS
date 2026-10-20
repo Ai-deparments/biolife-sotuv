@@ -1,0 +1,9 @@
+# Review majburiy egalari. Modul egalari qo'shilgach shu yerga yoziladi.
+*                                                   @sultanovdev
+api/src/main/java/uz/biolife/shared/                @sultanovdev
+api/src/main/java/uz/biolife/identity/              @sultanovdev
+api/src/main/java/uz/biolife/rating/                @sultanovdev
+api/src/main/java/uz/biolife/reporting/             @sultanovdev
+api/src/main/resources/db/migration/                @sultanovdev
+docs/adr/                                           @sultanovdev
+docs/loyiha-strukturasi.md                          @sultanovdev
